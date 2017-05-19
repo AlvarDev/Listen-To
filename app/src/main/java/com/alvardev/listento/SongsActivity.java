@@ -1,29 +1,33 @@
 package com.alvardev.listento;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.transition.Explode;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+
+import com.alvardev.listento.adapters.SongsAdapter;
+import com.alvardev.listento.models.Song;
+import com.alvardev.listento.utils.Const;
+
+import java.util.List;
 
 public class SongsActivity extends AppCompatActivity {
 
+    private static final String TAG = "SongsAct";
     private Toolbar toolbar;
-    private View incSong1;
-    private View incSong2;
-    private View incSong3;
-    private View incSong4;
-    private View incSong5;
-    private View incSong6;
-    private ImageView iviLogo;
     private FloatingActionButton facAddSong;
+    private RecyclerView rviSongs;
+
+    private List<Song> songs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,77 +35,45 @@ public class SongsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_songs);
 
         String name = getIntent().getExtras().getString("name");
+        songs = Const.getSongs();
         findViews();
-        setActions();
         setToolbar(name);
+        setRecyclerView();
     }
 
     private void findViews(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        incSong1 = findViewById(R.id.inc_song_1);
-        incSong2 = findViewById(R.id.inc_song_2);
-        incSong3 = findViewById(R.id.inc_song_3);
-        incSong4 = findViewById(R.id.inc_song_4);
-        incSong5 = findViewById(R.id.inc_song_5);
-        incSong6 = findViewById(R.id.inc_song_6);
-
-        iviLogo = (ImageView) findViewById(R.id.ivi_logo);
+        rviSongs = (RecyclerView) findViewById(R.id.rvi_songs);
         facAddSong = (FloatingActionButton) findViewById(R.id.fac_add_song);
     }
 
-    private void setActions(){
-        incSong1.setOnClickListener(new View.OnClickListener() {
+    private void setRecyclerView(){
+        rviSongs.setHasFixedSize(true);
+        StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        rviSongs.setLayoutManager(mLayoutManager);
+
+        SongsAdapter songsAdapter = new SongsAdapter(songs, SongsActivity.this);
+        songsAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                goToPlaySong(iviLogo);
+            public void onClick(View view) {
+                int position = rviSongs.getChildLayoutPosition(view);
+                ImageView img = (ImageView) view.findViewById(R.id.ivi_cover);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("song", songs.get(position));
+                goToPlaySong(img, bundle);
             }
         });
 
-        incSong2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPlaySong(null);
-            }
-        });
-
-        incSong3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPlaySong(null);
-            }
-        });
-
-        incSong4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPlaySong(null);
-            }
-        });
-
-        incSong5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPlaySong(null);
-            }
-        });
-
-        incSong6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goToPlaySong(null);
-            }
-        });
-
-        facAddSong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SongsActivity.this, AddSongActivity.class));
-            }
-        });
+        rviSongs.setAdapter(songsAdapter);
+        rviSongs.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void goToPlaySong(View view){
+
+    private void goToPlaySong(View view, Bundle bundle){
         Intent intent = new Intent(SongsActivity.this, PlaySongActivity.class);
+        if (bundle != null) {
+            intent.putExtra("extra", bundle);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setExitTransition(new Explode());
