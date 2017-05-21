@@ -2,29 +2,32 @@ package com.alvardev.listento.models;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
 /**
  * Created by alvardev on 21/05/17.
  * From Spotify
  */
 
-public class Track {
+public class Track extends RealmObject{
 
     private String id;
     private AlbumSpotify album;
-    private List<ArtistSpotify> artists;
+    private RealmList<ArtistSpotify> artists;
     @SerializedName("preview_url")
     private String previewUrl;
+    private String name;
 
     public Track() {
     }
 
-    public Track(String id, AlbumSpotify album, List<ArtistSpotify> artists, String previewUrl) {
+    public Track(String id, AlbumSpotify album, RealmList<ArtistSpotify> artists, String previewUrl, String name) {
         this.id = id;
         this.album = album;
         this.artists = artists;
         this.previewUrl = previewUrl;
+        this.name = name;
     }
 
     public String getId() {
@@ -43,11 +46,11 @@ public class Track {
         this.album = album;
     }
 
-    public List<ArtistSpotify> getArtists() {
+    public RealmList<ArtistSpotify> getArtists() {
         return artists;
     }
 
-    public void setArtists(List<ArtistSpotify> artists) {
+    public void setArtists(RealmList<ArtistSpotify> artists) {
         this.artists = artists;
     }
 
@@ -59,6 +62,14 @@ public class Track {
         this.previewUrl = previewUrl;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Track{" +
@@ -66,6 +77,7 @@ public class Track {
                 ", album=" + album +
                 ", artists=" + artists +
                 ", previewUrl='" + previewUrl + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }

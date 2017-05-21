@@ -9,24 +9,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alvardev.listento.R;
-import com.alvardev.listento.models.Song;
+import com.alvardev.listento.models.Track;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 /**
- * Created by alvardev on 18/05/17.
- * Adapter for RecyclerView
+ * Created by alvardev on 21/05/17.
+ * Adapter for Tracks from Spotify
  */
 
-public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder>
+public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder>
         implements View.OnClickListener {
 
-    private List<Song> mData;
+    private List<Track> mData;
     private View.OnClickListener listener;
     private Context context;
 
-    public SongsAdapter(List<Song> myData, Context context) {
+    public TracksAdapter(List<Track> myData, Context context) {
         this.mData = myData;
         this.context = context;
     }
@@ -45,8 +45,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder>
     }
 
     @Override
-    public SongsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.song_layout, parent, false);
+    public TracksAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_layout, parent, false);
         view.setOnClickListener(this);
         return new ViewHolder(view);
     }
@@ -54,15 +54,15 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        String urlCover = mData.get(position).getUrlCover() == null ?
-                "" : mData.get(position).getUrlCover();
+        String urlCover =  mData.get(position).getAlbum().getImages().get(0).getUrl() == null ?
+                "" : mData.get(position).getAlbum().getImages().get(0).getUrl();
         Picasso.with(context)
                 .load(urlCover)
                 .placeholder(R.drawable.lp_logo)
                 .error(R.drawable.lp_logo)
                 .into(holder.iviCover);
 
-        holder.tviBand.setText(mData.get(position).getBand());
+        holder.tviBand.setText(mData.get(position).getArtists().get(0).getName());
         holder.tviName.setText(mData.get(position).getName());
     }
 

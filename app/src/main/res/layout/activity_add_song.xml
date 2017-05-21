@@ -51,7 +51,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvi_songs_result"
+        android:id="@+id/rvi_tracks_result"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

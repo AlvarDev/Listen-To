@@ -14,7 +14,7 @@ import retrofit2.http.Query;
 public interface ApiClientInterface {
 
     @GET("search")
-    Call<TracksResponse> getSongsFromSpotify(@Query("q") String q,
-                                    @Query("type") String type);
+    Call<TracksResponse> gettracksFromSpotify(@Query("q") String q,
+                                              @Query("type") String type);
 
 }

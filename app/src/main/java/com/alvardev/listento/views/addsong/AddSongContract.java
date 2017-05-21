@@ -20,7 +20,7 @@ interface AddSongContract {
 
         void addSongToFirebase();
 
-        void searchSongs(String q);
+        void searchTracksOnSpotify(String q);
 
     }
 

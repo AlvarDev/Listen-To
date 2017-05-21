@@ -1,11 +1,13 @@
 package com.alvardev.listento.models;
 
+import io.realm.RealmObject;
+
 /**
  * Created by alvardev on 21/05/17.
  * Image Spotify
  */
 
-public class ImageSpotify {
+public class ImageSpotify extends RealmObject{
 
     private String url;
     private int height;

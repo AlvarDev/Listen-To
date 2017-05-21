@@ -1,11 +1,13 @@
 package com.alvardev.listento.models;
 
+import io.realm.RealmObject;
+
 /**
  * Created by alvardev on 21/05/17.
  * Artist Spotify
  */
 
-public class ArtistSpotify {
+public class ArtistSpotify extends RealmObject{
 
     private String id;
     private String name;

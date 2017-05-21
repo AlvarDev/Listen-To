@@ -1,21 +1,22 @@
 package com.alvardev.listento.models;
 
-import java.util.List;
+import io.realm.RealmList;
+import io.realm.RealmObject;
 
 /**
  * Created by alvardev on 21/05/17.
  * Album Spotify
  */
 
-public class AlbumSpotify {
+public class AlbumSpotify extends RealmObject{
 
     private String id;
-    private List<ImageSpotify> images;
+    private RealmList<ImageSpotify> images;
 
     public AlbumSpotify() {
     }
 
-    public AlbumSpotify(String id, List<ImageSpotify> images) {
+    public AlbumSpotify(String id, RealmList<ImageSpotify> images) {
         this.id = id;
         this.images = images;
     }
@@ -28,11 +29,11 @@ public class AlbumSpotify {
         this.id = id;
     }
 
-    public List<ImageSpotify> getImages() {
+    public RealmList<ImageSpotify> getImages() {
         return images;
     }
 
-    public void setImages(List<ImageSpotify> images) {
+    public void setImages(RealmList<ImageSpotify> images) {
         this.images = images;
     }
 
