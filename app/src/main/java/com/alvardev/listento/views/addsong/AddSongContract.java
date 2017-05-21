@@ -18,7 +18,9 @@ interface AddSongContract {
 
     interface Presenter extends BasePresenter {
 
-        void searchSongs();
+        void addSongToFirebase();
+
+        void searchSongs(String q);
 
     }
 

@@ -34,6 +34,6 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
 
     @OnClick(R.id.ibu_search)
     protected void onSearch(){
-        mPresenter.searchSongs();
+        mPresenter.searchSongs("In the end");
     }
 }
