@@ -1,50 +1,77 @@
-package com.alvardev.listento;
+package com.alvardev.listento.views.songs;
 
-import android.app.ActivityOptions;
-import android.content.Intent;
-import android.os.Build;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.transition.Explode;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alvardev.listento.bases.BaseAppCompatActivity;
+import com.alvardev.listento.views.addsong.AddSongActivity;
+import com.alvardev.listento.views.playsong.PlaySongActivity;
+import com.alvardev.listento.R;
 import com.alvardev.listento.adapters.SongsAdapter;
 import com.alvardev.listento.models.Song;
-import com.alvardev.listento.utils.Const;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SongsActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+public class SongsActivity extends BaseAppCompatActivity implements SongsContract.View{
 
     private static final String TAG = "SongsAct";
-    private Toolbar toolbar;
-    private FloatingActionButton facAddSong;
-    private RecyclerView rviSongs;
 
+    @BindView(R.id.toolbar) protected Toolbar toolbar;
+    @BindView(R.id.rvi_songs) protected RecyclerView rviSongs;
     private List<Song> songs;
+
+    private SongsContract.Presenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_songs);
-
+        ButterKnife.bind(this);
         String name = getIntent().getExtras().getString("name");
-        songs = Const.getSongs();
-        findViews();
+        songs = new ArrayList<>();
+        mPresenter = new SongsPresenter(this);
         setToolbar(name);
         setRecyclerView();
+        mPresenter.getSongs();
     }
 
-    private void findViews(){
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        rviSongs = (RecyclerView) findViewById(R.id.rvi_songs);
-        facAddSong = (FloatingActionButton) findViewById(R.id.fac_add_song);
+    @Override
+    public void onLoading(boolean active){
+
+    }
+
+    @Override
+    public void onSongsObtained(List<Song> songs) {
+        this.songs = songs;
+        setRecyclerView();
+        Log.i(TAG, "Total songs: " + this.songs.size());
+    }
+
+    @Override
+    public void setPresenter(SongsContract.Presenter presenter) {
+        //this method is useful when use fragments
+        mPresenter = presenter;
+    }
+
+    @OnClick(R.id.fac_add_song)
+    protected void onFacClicked(){
+        explodeToActivity(SongsActivity.this, AddSongActivity.class);
+    }
+
+    private void setToolbar(String name){
+        toolbar.setTitle(getString(R.string.s_hi) + name);
+        setSupportActionBar(toolbar);
     }
 
     private void setRecyclerView(){
@@ -60,7 +87,7 @@ public class SongsActivity extends AppCompatActivity {
                 ImageView img = (ImageView) view.findViewById(R.id.ivi_cover);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("song", songs.get(position));
-                goToPlaySong(img, bundle);
+                explodeToActivity(SongsActivity.this, PlaySongActivity.class, img, bundle);
             }
         });
 
@@ -69,27 +96,9 @@ public class SongsActivity extends AppCompatActivity {
     }
 
 
-    private void goToPlaySong(View view, Bundle bundle){
-        Intent intent = new Intent(SongsActivity.this, PlaySongActivity.class);
-        if (bundle != null) {
-            intent.putExtra("extra", bundle);
-        }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setExitTransition(new Explode());
-            ActivityOptions options = view != null ?
-                    ActivityOptions.makeSceneTransitionAnimation(this, view, "view") :
-                    ActivityOptions.makeSceneTransitionAnimation(this);
-            startActivity(intent, options.toBundle());
 
-        } else {
-            startActivity(intent);
-        }
-    }
 
-    private void setToolbar(String name){
-        toolbar.setTitle(getString(R.string.s_hi) + name);
-        setSupportActionBar(toolbar);
-    }
+
 
 }

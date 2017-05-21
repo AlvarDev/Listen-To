@@ -8,7 +8,7 @@
     android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context="com.alvardev.listento.LoginActivity">
+    tools:context="com.alvardev.listento.views.login.LoginActivity">
 
     <ImageView
         android:layout_width="match_parent"

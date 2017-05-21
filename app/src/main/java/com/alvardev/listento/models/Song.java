@@ -9,6 +9,7 @@ import java.io.Serializable;
 
 public class Song implements Serializable{
 
+    private String id;
     private String urlCover;
     private String band;
     private String name;
@@ -16,10 +17,19 @@ public class Song implements Serializable{
     public Song() {
     }
 
-    public Song(String urlCover, String band, String name) {
+    public Song(String id, String urlCover, String band, String name) {
+        this.id = id;
         this.urlCover = urlCover;
         this.band = band;
         this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUrlCover() {
@@ -49,7 +59,8 @@ public class Song implements Serializable{
     @Override
     public String toString() {
         return "Song{" +
-                "urlCover='" + urlCover + '\'' +
+                "id='" + id + '\'' +
+                ", urlCover='" + urlCover + '\'' +
                 ", band='" + band + '\'' +
                 ", name='" + name + '\'' +
                 '}';

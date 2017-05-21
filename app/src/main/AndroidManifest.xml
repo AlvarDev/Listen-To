@@ -11,23 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
-
-        </activity>
-        <activity android:name=".SongsActivity" />
-        <activity android:name=".PlaySongActivity" />
-        <activity android:name=".AddSongActivity" />
-        <activity android:name=".MaterialActivity" >
-
+        <activity android:name=".views.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".views.songs.SongsActivity" />
+        <activity android:name=".views.playsong.PlaySongActivity" />
+        <activity android:name=".views.addsong.AddSongActivity" />
 
-            </activity>
-
-        <activity android:name=".SecondActivity"/>
     </application>
 
 </manifest>

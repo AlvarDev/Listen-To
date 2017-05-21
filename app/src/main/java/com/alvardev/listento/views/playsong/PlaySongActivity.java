@@ -1,4 +1,4 @@
-package com.alvardev.listento;
+package com.alvardev.listento.views.playsong;
 
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.alvardev.listento.R;
 import com.alvardev.listento.models.Song;
 import com.squareup.picasso.Picasso;
 

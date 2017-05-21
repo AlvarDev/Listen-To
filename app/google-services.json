@@ -1,0 +1,333 @@
+{
+  "project_info": {
+    "project_number": "26194385362",
+    "firebase_url": "https://battlesoultry.firebaseio.com",
+    "project_id": "battlesoultry",
+    "storage_bucket": "battlesoultry.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26194385362:android:ca35f8d17a5fba40",
+        "android_client_info": {
+          "package_name": "com.alvardev.android.firebasedemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26194385362-guqass6p70t7jglod1d67j7pkfolp9n9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alvardev.android.firebasedemo",
+            "certificate_hash": "6040008584b8685b383c79ef707b38b5cdb3e331"
+          }
+        },
+        {
+          "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANePjMtBKQGLfNi08jCpRXLN301gRv1PQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26194385362-9v95i8dt5hql49felbv658s7n4q417b2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alvardev.FirebaseiOS",
+                "app_store_id": "1123581321"
+              }
+            },
+            {
+              "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26194385362:android:5920de3503a2d18c",
+        "android_client_info": {
+          "package_name": "com.google.firebase.quickstart.fcm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26194385362-b766ucm4c0raij00m6fgpkfua6baccdc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.google.firebase.quickstart.fcm",
+            "certificate_hash": "6040008584b8685b383c79ef707b38b5cdb3e331"
+          }
+        },
+        {
+          "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANePjMtBKQGLfNi08jCpRXLN301gRv1PQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26194385362-9v95i8dt5hql49felbv658s7n4q417b2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alvardev.FirebaseiOS",
+                "app_store_id": "1123581321"
+              }
+            },
+            {
+              "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26194385362:android:007a0108b6b73b01",
+        "android_client_info": {
+          "package_name": "com.alvardev.android.databasefirebasedemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26194385362-o2j45eenuso1g5lu1itu3coumkb3fde9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alvardev.android.databasefirebasedemo",
+            "certificate_hash": "6040008584b8685b383c79ef707b38b5cdb3e331"
+          }
+        },
+        {
+          "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANePjMtBKQGLfNi08jCpRXLN301gRv1PQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26194385362-9v95i8dt5hql49felbv658s7n4q417b2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alvardev.FirebaseiOS",
+                "app_store_id": "1123581321"
+              }
+            },
+            {
+              "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26194385362:android:6be2a82d96c5244f",
+        "android_client_info": {
+          "package_name": "com.alvardev.android.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANePjMtBKQGLfNi08jCpRXLN301gRv1PQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26194385362:android:b0b667b7bb2fb080",
+        "android_client_info": {
+          "package_name": "com.alvardev.firebaseandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26194385362-5vhknem68hmedcot4966aohfbsoeofgk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alvardev.firebaseandroid",
+            "certificate_hash": "f2f8dd57ee0369d168d299fa9f5292689e7d8b3d"
+          }
+        },
+        {
+          "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANePjMtBKQGLfNi08jCpRXLN301gRv1PQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26194385362-9v95i8dt5hql49felbv658s7n4q417b2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alvardev.FirebaseiOS",
+                "app_store_id": "1123581321"
+              }
+            },
+            {
+              "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26194385362:android:73a4fb8297b2cd4f",
+        "android_client_info": {
+          "package_name": "com.google.samples.quickstart.analytics"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANePjMtBKQGLfNi08jCpRXLN301gRv1PQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:26194385362:android:1544f7103ec03ff5",
+        "android_client_info": {
+          "package_name": "com.alvardev.listento"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "26194385362-vns3llj2v1kn11qv0ikpakbh82g3uvv3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alvardev.listento",
+            "certificate_hash": "6040008584b8685b383c79ef707b38b5cdb3e331"
+          }
+        },
+        {
+          "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANePjMtBKQGLfNi08jCpRXLN301gRv1PQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "26194385362-9v95i8dt5hql49felbv658s7n4q417b2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.alvardev.FirebaseiOS",
+                "app_store_id": "1123581321"
+              }
+            },
+            {
+              "client_id": "26194385362-bfjcivigs9cbu2bbormk2ied6fb6n5er.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
