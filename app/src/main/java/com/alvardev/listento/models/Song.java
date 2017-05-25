@@ -13,15 +13,17 @@ public class Song implements Serializable{
     private String urlCover;
     private String band;
     private String name;
+    private String user;
 
     public Song() {
     }
 
-    public Song(String id, String urlCover, String band, String name) {
+    public Song(String id, String urlCover, String band, String name, String user) {
         this.id = id;
         this.urlCover = urlCover;
         this.band = band;
         this.name = name;
+        this.user = user;
     }
 
     public String getId() {
@@ -56,6 +58,14 @@ public class Song implements Serializable{
         this.name = name;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
@@ -63,6 +73,7 @@ public class Song implements Serializable{
                 ", urlCover='" + urlCover + '\'' +
                 ", band='" + band + '\'' +
                 ", name='" + name + '\'' +
+                ", user='" + user + '\'' +
                 '}';
     }
 }

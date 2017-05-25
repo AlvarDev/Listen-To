@@ -1,11 +1,19 @@
 package com.alvardev.listento.views.addsong;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.TextView;
 
 import com.alvardev.listento.R;
 import com.alvardev.listento.adapters.TracksAdapter;
@@ -15,6 +23,7 @@ import com.alvardev.listento.models.Track;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
@@ -23,7 +32,12 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
 
     private static final String TAG = "AddSongAct";
 
+    @BindView(R.id.main_content) protected View mainContent;
     @BindView(R.id.rvi_tracks_result) protected RecyclerView rviTracksResult;
+    @BindView(R.id.tvi_no_results) protected TextView tviNoResults;
+    @BindView(R.id.til_search) protected TextInputLayout tilSearch;
+    @BindView(R.id.tie_search) protected TextInputEditText tieSearch;
+    @BindView(R.id.inc_loading) protected View incLoading;
 
     private AddSongContract.Presenter mPresenter;
     private TracksAdapter mAdapter;
@@ -33,6 +47,7 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
         public void onChange(RealmResults<Track> element) {
             mAdapter.notifyDataSetChanged();
             rviTracksResult.setVisibility(tracks.size() > 0 ? View.VISIBLE : View.GONE);
+            tviNoResults.setVisibility(tracks.size() > 0 ? View.GONE : View.VISIBLE);
         }
     };
 
@@ -54,12 +69,30 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
 
     @Override
     public void onLoading(boolean active) {
+        incLoading.setVisibility(active ? View.VISIBLE : View.GONE);
+    }
 
+    @Override
+    public void onShareSongSuccess() {
+        showSnack(getString(R.string.s_share_song_success));
     }
 
     @OnClick(R.id.ibu_search)
     protected void onSearch(){
-        mPresenter.searchTracksOnSpotify("In the end");
+        searchSongs();
+    }
+
+    @OnEditorAction(R.id.tie_search)
+    protected boolean search(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            searchSongs();
+        }
+        return false;
+    }
+
+    @OnClick(R.id.inc_loading)
+    protected void doNothing(){
+
     }
 
     private void setRecyclerView(){
@@ -73,13 +106,46 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
         mAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, "track clicked");
+                int position = rviTracksResult.getChildLayoutPosition(v);
+                Track track = tracks.get(position);
+                mPresenter.addSongToFirebase(track.getId(),
+                        track.getAlbum().getImages().get(0).getUrl(),
+                        track.getArtists().get(0).getName(),
+                        track.getName(),
+                        "");
             }
         });
 
         rviTracksResult.setAdapter(mAdapter);
         rviTracksResult.setItemAnimator(new DefaultItemAnimator());
         tracks.addChangeListener(realmListener);
+
+        rviTracksResult.setVisibility(tracks.size() > 0 ? View.VISIBLE : View.GONE);
+        tviNoResults.setVisibility(tracks.size() > 0 ? View.GONE : View.VISIBLE);
+    }
+
+    private void searchSongs(){
+        String query = tieSearch.getText().toString();
+        if(!query.isEmpty()){
+            mPresenter.searchTracksOnSpotify(query);
+            hideKeyboard();
+        }else{
+            tilSearch.setError(getString(R.string.s_field_required));
+        }
+    }
+
+    private void hideKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+    }
+
+    private void showSnack(String message) {
+        Snackbar.make(mainContent, message, Snackbar.LENGTH_SHORT)
+                .setAction("", null)
+                .show();
     }
 
 }

@@ -14,11 +14,13 @@ interface AddSongContract {
 
         void onLoading(boolean active);
 
+        void onShareSongSuccess();
+
     }
 
     interface Presenter extends BasePresenter {
 
-        void addSongToFirebase();
+        void addSongToFirebase(String id, String urlCover, String band, String name, String user);
 
         void searchTracksOnSpotify(String q);
 

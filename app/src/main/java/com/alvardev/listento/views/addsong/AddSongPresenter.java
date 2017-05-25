@@ -47,14 +47,11 @@ class AddSongPresenter implements AddSongContract.Presenter{
     }
 
     @Override
-    public void addSongToFirebase() {
-        String idSong = String.valueOf(Calendar.getInstance().getTimeInMillis());
+    public void addSongToFirebase(String id, String urlCover, String band, String name, String user) {
         mDatabase.child("songs")
-                .child(idSong)
-                .setValue(new Song(idSong,
-                        "https://i.scdn.co/image/66ff51342a9b250bf5b998fd0ec8e977671468bc",
-                        "Heavy",
-                        "Linkin Park"));
+                .child(id)
+                .setValue(new Song(id, urlCover, band, name, user));
+        mView.onShareSongSuccess();
     }
 
     @Override
@@ -75,6 +72,7 @@ class AddSongPresenter implements AddSongContract.Presenter{
                     String message = ApiClient.manageResponseErrors(response, context);
                     Log.i(TAG, "code obtained " + response.code());
                     Log.i(TAG, message);
+                    cleanRealm();
                     mView.onLoading(false);
                 }
 
@@ -105,6 +103,7 @@ class AddSongPresenter implements AddSongContract.Presenter{
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(trackList);
         realm.commitTransaction();
+        mView.onLoading(false);
     }
 
 
