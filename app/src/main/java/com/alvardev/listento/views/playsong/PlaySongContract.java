@@ -8,7 +8,7 @@ import com.alvardev.listento.bases.BaseView;
  * Contract for Play song
  */
 
-public interface PlaySongContract {
+interface PlaySongContract {
 
     interface View extends BaseView<Presenter> {
 

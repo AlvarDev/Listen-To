@@ -104,4 +104,16 @@ public class PlaySongActivity extends BaseAppCompatActivity implements PlaySongC
                 .setAction("", null)
                 .show();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mPresenter.onStop();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPresenter.onStop();
+    }
 }

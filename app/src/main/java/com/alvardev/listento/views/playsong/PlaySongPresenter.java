@@ -13,7 +13,7 @@ import java.io.IOException;
  * Presenter for Play song
  */
 
-public class PlaySongPresenter implements PlaySongContract.Presenter, MediaPlayer.OnPreparedListener {
+class PlaySongPresenter implements PlaySongContract.Presenter, MediaPlayer.OnPreparedListener {
 
     private static final String TAG = "PlaySongPres";
     private PlaySongContract.View mView;
