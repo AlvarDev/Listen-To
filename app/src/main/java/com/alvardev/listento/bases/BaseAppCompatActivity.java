@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -18,6 +19,8 @@ import android.view.View;
  */
 
 public class BaseAppCompatActivity extends AppCompatActivity {
+
+    private static final String NAME_PREFERENCE = "com.alvardev.listento.bases.preferences";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
@@ -50,4 +53,17 @@ public class BaseAppCompatActivity extends AppCompatActivity {
     protected void explodeToActivity(Context context, Class<?> cls) {
         explodeToActivity(context, cls, null, null);
     }
+
+    protected void saveCurrentUser(String user) {
+        SharedPreferences preferences = this.getSharedPreferences(NAME_PREFERENCE, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("currentUser", user);
+        editor.apply();
+    }
+
+    protected String getCurrentUser() {
+        SharedPreferences preferences = this.getSharedPreferences(NAME_PREFERENCE, MODE_PRIVATE);
+        return preferences.getString("currentUser", "");
+    }
+
 }

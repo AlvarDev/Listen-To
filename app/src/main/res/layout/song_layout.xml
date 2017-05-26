@@ -15,13 +15,13 @@
             android:id="@+id/ivi_cover"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
-            android:layout_marginBottom="8dp"
             android:src="@drawable/lp_logo" />
 
         <TextView
-            android:id="@+id/tvi_band"
+            android:id="@+id/tvi_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
@@ -30,13 +30,22 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tvi_name"
+            android:id="@+id/tvi_band"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textStyle="italic" />
+
+        <TextView
+            android:id="@+id/tvi_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:gravity="center"
             android:text="@string/app_name"
-            android:textStyle="italic" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp" />
 
     </LinearLayout>
 

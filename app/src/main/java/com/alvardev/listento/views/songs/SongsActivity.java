@@ -38,10 +38,9 @@ public class SongsActivity extends BaseAppCompatActivity implements SongsContrac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_songs);
         ButterKnife.bind(this);
-        String name = getIntent().getExtras().getString("name");
         songs = new ArrayList<>();
         mPresenter = new SongsPresenter(this);
-        setToolbar(name);
+        setToolbar();
         setRecyclerView();
         mPresenter.getSongs();
     }
@@ -69,8 +68,8 @@ public class SongsActivity extends BaseAppCompatActivity implements SongsContrac
         explodeToActivity(SongsActivity.this, AddSongActivity.class);
     }
 
-    private void setToolbar(String name){
-        toolbar.setTitle(getString(R.string.s_hi) + name);
+    private void setToolbar(){
+        toolbar.setTitle(getString(R.string.s_hi) + getCurrentUser());
         setSupportActionBar(toolbar);
     }
 
@@ -86,7 +85,7 @@ public class SongsActivity extends BaseAppCompatActivity implements SongsContrac
                 int position = rviSongs.getChildLayoutPosition(view);
                 ImageView img = (ImageView) view.findViewById(R.id.ivi_cover);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("song", songs.get(position));
+                bundle.putString("songId", songs.get(position).getId());
                 explodeToActivity(SongsActivity.this, PlaySongActivity.class, img, bundle);
             }
         });

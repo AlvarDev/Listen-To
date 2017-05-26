@@ -8,6 +8,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,6 +39,7 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
     @BindView(R.id.til_search) protected TextInputLayout tilSearch;
     @BindView(R.id.tie_search) protected TextInputEditText tieSearch;
     @BindView(R.id.inc_loading) protected View incLoading;
+    @BindView(R.id.toolbar) protected Toolbar toolbar;
 
     private AddSongContract.Presenter mPresenter;
     private TracksAdapter mAdapter;
@@ -58,6 +60,7 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
         ButterKnife.bind(this);
 
         mPresenter = new AddSongPresenter(this, this);
+        setToolbar();
         setRecyclerView();
     }
 
@@ -95,6 +98,11 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
 
     }
 
+    private void setToolbar(){
+        toolbar.setTitle(getString(R.string.s_hi) + getCurrentUser());
+        setSupportActionBar(toolbar);
+    }
+
     private void setRecyclerView(){
         rviTracksResult.setHasFixedSize(true);
         final LinearLayoutManager mLayoutManager = new LinearLayoutManager(AddSongActivity.this);
@@ -103,16 +111,20 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
         Realm realm = Realm.getDefaultInstance();
         tracks = realm.where(Track.class).findAll();
         mAdapter = new TracksAdapter(tracks, AddSongActivity.this);
-        mAdapter.setOnClickListener(new View.OnClickListener() {
+        mAdapter.setOnActionsListener(new TracksAdapter.TrackInterface() {
             @Override
-            public void onClick(View v) {
-                int position = rviTracksResult.getChildLayoutPosition(v);
+            public void onPlaySong(int position) {
+                Log.i(TAG, "onPlaySong: " + position);
+            }
+
+            @Override
+            public void onShareSong(int position) {
                 Track track = tracks.get(position);
                 mPresenter.addSongToFirebase(track.getId(),
                         track.getAlbum().getImages().get(0).getUrl(),
                         track.getArtists().get(0).getName(),
                         track.getName(),
-                        "");
+                        getCurrentUser());
             }
         });
 

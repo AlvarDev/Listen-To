@@ -3,15 +3,15 @@ package com.alvardev.listento.views.login;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import com.alvardev.listento.R;
+import com.alvardev.listento.bases.BaseAppCompatActivity;
 import com.alvardev.listento.views.songs.SongsActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseAppCompatActivity {
 
     private View mainContent;
     private Button btnLogin;
@@ -47,9 +47,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void goToSongs(String name){
-        Intent intent = new Intent(LoginActivity.this, SongsActivity.class);
-        intent.putExtra("name" , name);
-        startActivity(intent);
+        saveCurrentUser(name);
+        startActivity(new Intent(LoginActivity.this, SongsActivity.class));
         finish();
     }
 

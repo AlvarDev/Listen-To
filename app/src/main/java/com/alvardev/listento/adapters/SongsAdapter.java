@@ -35,12 +35,14 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder>
         ImageView iviCover;
         TextView tviBand;
         TextView tviName;
+        TextView tviUser;
 
         ViewHolder(View v) {
             super(v);
             iviCover = (ImageView) v.findViewById(R.id.ivi_cover);
             tviBand = (TextView) v.findViewById(R.id.tvi_band);
             tviName = (TextView) v.findViewById(R.id.tvi_name);
+            tviUser = (TextView) v.findViewById(R.id.tvi_user);
         }
     }
 
@@ -64,6 +66,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder>
 
         holder.tviBand.setText(mData.get(position).getBand());
         holder.tviName.setText(mData.get(position).getName());
+        holder.tviUser.setText(mData.get(position).getUser());
     }
 
     @Override

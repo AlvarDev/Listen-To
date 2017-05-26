@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,12 +20,11 @@ import java.util.List;
  * Adapter for Tracks from Spotify
  */
 
-public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder>
-        implements View.OnClickListener {
+public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder> {
 
     private List<Track> mData;
-    private View.OnClickListener listener;
     private Context context;
+    private TrackInterface mListener;
 
     public TracksAdapter(List<Track> myData, Context context) {
         this.mData = myData;
@@ -35,20 +35,40 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
         ImageView iviCover;
         TextView tviBand;
         TextView tviName;
+        ImageButton ibuPlay;
+        ImageButton ibuShare;
 
         ViewHolder(View v) {
             super(v);
             iviCover = (ImageView) v.findViewById(R.id.ivi_cover);
             tviBand = (TextView) v.findViewById(R.id.tvi_band);
             tviName = (TextView) v.findViewById(R.id.tvi_name);
+            ibuPlay = (ImageButton) v.findViewById(R.id.ibu_play);
+            ibuShare = (ImageButton) v.findViewById(R.id.ibu_share);
         }
     }
 
     @Override
     public TracksAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.track_layout, parent, false);
-        view.setOnClickListener(this);
-        return new ViewHolder(view);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.ibuPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null){
+                    mListener.onPlaySong(holder.getAdapterPosition());
+                }
+            }
+        });
+        holder.ibuShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mListener != null){
+                    mListener.onShareSong(holder.getAdapterPosition());
+                }
+            }
+        });
+        return holder;
     }
 
     @Override
@@ -64,6 +84,7 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
 
         holder.tviBand.setText(mData.get(position).getArtists().get(0).getName());
         holder.tviName.setText(mData.get(position).getName());
+
     }
 
     @Override
@@ -71,14 +92,17 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
         return mData.size();
     }
 
-    public void setOnClickListener(View.OnClickListener listener) {
-        this.listener = listener;
+
+    public void setOnActionsListener(TrackInterface mListener){
+        this.mListener = mListener;
     }
 
-    @Override
-    public void onClick(View v) {
-        if (listener != null)
-            listener.onClick(v);
+    public interface TrackInterface {
+
+        void onPlaySong(int position);
+
+        void onShareSong(int position);
+
     }
 
 }
