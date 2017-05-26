@@ -1,6 +1,8 @@
 package com.alvardev.listento.views.addsong;
 
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.util.Log;
 
 import com.alvardev.listento.models.Song;
@@ -12,7 +14,7 @@ import com.alvardev.listento.utils.Util;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Calendar;
+import java.io.IOException;
 import java.util.List;
 
 import io.realm.Realm;
@@ -26,11 +28,12 @@ import retrofit2.Response;
  * Presenter for Add Song
  */
 
-class AddSongPresenter implements AddSongContract.Presenter{
+class AddSongPresenter implements AddSongContract.Presenter, MediaPlayer.OnPreparedListener{
 
     private static final String TAG = "AddSongPres";
     private AddSongContract.View mView;
     private Context context;
+    private MediaPlayer mMediaPlayer;
 
     private DatabaseReference mDatabase;
 
@@ -39,6 +42,7 @@ class AddSongPresenter implements AddSongContract.Presenter{
         this.context = context;
         mView.setPresenter(this);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mMediaPlayer = new MediaPlayer();
     }
 
     @Override
@@ -47,10 +51,10 @@ class AddSongPresenter implements AddSongContract.Presenter{
     }
 
     @Override
-    public void addSongToFirebase(String id, String urlCover, String band, String name, String user) {
+    public void addSongToFirebase(String id, String urlCover, String band, String name, String user, String previewUrl) {
         mDatabase.child("songs")
                 .child(id)
-                .setValue(new Song(id, urlCover, band, name, user));
+                .setValue(new Song(id, urlCover, band, name, user, previewUrl));
         mView.onShareSongSuccess();
     }
 
@@ -87,6 +91,31 @@ class AddSongPresenter implements AddSongContract.Presenter{
 
     }
 
+    @Override
+    public void playSong(String urlPreview) {
+        if(urlPreview != null && !urlPreview.isEmpty()){
+            mView.onLoading(true);
+            resetMediaPlayer();
+            try {
+                mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                mMediaPlayer.setDataSource(urlPreview);
+                mMediaPlayer.setOnPreparedListener(this);
+                mMediaPlayer.prepareAsync(); // prepare async to not block main thread
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            mView.onNoPreviewFound();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(mMediaPlayer.isPlaying()){
+            mMediaPlayer.stop();
+        }
+    }
+
     private void cleanRealm(){
         Realm mRealm = Realm.getDefaultInstance();
         final RealmResults<Track> tracksToDelete = mRealm.where(Track.class).findAll();
@@ -98,11 +127,27 @@ class AddSongPresenter implements AddSongContract.Presenter{
         });
     }
 
+    private void resetMediaPlayer(){
+        if(mMediaPlayer.isPlaying()){
+            mMediaPlayer.stop();
+        }
+        mMediaPlayer = new MediaPlayer();
+    }
+
     private void saveOnRealm(List<Track> trackList){
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(trackList);
         realm.commitTransaction();
+        mView.onLoading(false);
+    }
+
+    @Override
+    public void onPrepared(MediaPlayer mp) {
+        if(mMediaPlayer.isPlaying()){
+            mMediaPlayer.stop();
+        }
+        mMediaPlayer.start();
         mView.onLoading(false);
     }
 

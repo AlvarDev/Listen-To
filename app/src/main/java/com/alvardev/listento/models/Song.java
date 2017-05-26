@@ -14,16 +14,18 @@ public class Song implements Serializable{
     private String band;
     private String name;
     private String user;
+    private String previewUrl;
 
     public Song() {
     }
 
-    public Song(String id, String urlCover, String band, String name, String user) {
+    public Song(String id, String urlCover, String band, String name, String user, String previewUrl) {
         this.id = id;
         this.urlCover = urlCover;
         this.band = band;
         this.name = name;
         this.user = user;
+        this.previewUrl = previewUrl;
     }
 
     public String getId() {
@@ -66,6 +68,14 @@ public class Song implements Serializable{
         this.user = user;
     }
 
+    public String getPreviewUrl() {
+        return previewUrl;
+    }
+
+    public void setPreviewUrl(String previewUrl) {
+        this.previewUrl = previewUrl;
+    }
+
     @Override
     public String toString() {
         return "Song{" +
@@ -74,6 +84,7 @@ public class Song implements Serializable{
                 ", band='" + band + '\'' +
                 ", name='" + name + '\'' +
                 ", user='" + user + '\'' +
+                ", previewUrl='" + previewUrl + '\'' +
                 '}';
     }
 }

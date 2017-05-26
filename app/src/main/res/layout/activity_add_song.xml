@@ -39,6 +39,8 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/app_name"
                     android:inputType="textPersonName|textCapWords"
+                    android:lines="1"
+                    android:imeOptions="actionDone"
                     android:textSize="14sp" />
 
             </android.support.design.widget.TextInputLayout>

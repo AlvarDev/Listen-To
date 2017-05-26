@@ -41,6 +41,7 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
     @BindView(R.id.inc_loading) protected View incLoading;
     @BindView(R.id.toolbar) protected Toolbar toolbar;
 
+
     private AddSongContract.Presenter mPresenter;
     private TracksAdapter mAdapter;
     private RealmResults<Track> tracks;
@@ -80,6 +81,11 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
         showSnack(getString(R.string.s_share_song_success));
     }
 
+    @Override
+    public void onNoPreviewFound() {
+        showSnack(getString(R.string.s_no_preview_found));
+    }
+
     @OnClick(R.id.ibu_search)
     protected void onSearch(){
         searchSongs();
@@ -115,16 +121,20 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
             @Override
             public void onPlaySong(int position) {
                 Log.i(TAG, "onPlaySong: " + position);
+                hideKeyboard();
+                mPresenter.playSong(tracks.get(position).getPreviewUrl());
             }
 
             @Override
             public void onShareSong(int position) {
+                hideKeyboard();
                 Track track = tracks.get(position);
                 mPresenter.addSongToFirebase(track.getId(),
                         track.getAlbum().getImages().get(0).getUrl(),
                         track.getArtists().get(0).getName(),
                         track.getName(),
-                        getCurrentUser());
+                        getCurrentUser(),
+                        track.getPreviewUrl());
             }
         });
 
@@ -137,6 +147,7 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
     }
 
     private void searchSongs(){
+        tviNoResults.setVisibility(View.GONE);
         String query = tieSearch.getText().toString();
         if(!query.isEmpty()){
             mPresenter.searchTracksOnSpotify(query);
@@ -160,4 +171,9 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
                 .show();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mPresenter.onBackPressed();
+    }
 }

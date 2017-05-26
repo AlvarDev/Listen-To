@@ -16,13 +16,19 @@ interface AddSongContract {
 
         void onShareSongSuccess();
 
+        void onNoPreviewFound();
+
     }
 
     interface Presenter extends BasePresenter {
 
-        void addSongToFirebase(String id, String urlCover, String band, String name, String user);
+        void addSongToFirebase(String id, String urlCover, String band, String name, String user, String previewUrl);
 
         void searchTracksOnSpotify(String q);
+
+        void playSong(String urlPreview);
+
+        void onBackPressed();
 
     }
 

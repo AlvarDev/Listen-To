@@ -4,46 +4,53 @@ import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.alvardev.listento.R;
 import com.alvardev.listento.bases.BaseAppCompatActivity;
 import com.alvardev.listento.views.songs.SongsActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnEditorAction;
+
 public class LoginActivity extends BaseAppCompatActivity {
 
-    private View mainContent;
-    private Button btnLogin;
-    private TextInputEditText tieNameLogin;
+    @BindView(R.id.main_content) protected View mainContent;
+    @BindView(R.id.tie_name_login) protected TextInputEditText tieNameLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        findViews();
-        setActions();
+        ButterKnife.bind(this);
     }
 
-    private void findViews(){
-        mainContent = findViewById(R.id.main_content);
-        btnLogin = (Button) findViewById(R.id.btn_login);
-        tieNameLogin = (TextInputEditText) findViewById(R.id.tie_name_login);
+    @OnClick(R.id.btn_login)
+    protected void onClickLogin(){
+        login();
     }
 
-    private void setActions(){
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = tieNameLogin.getText().toString();
-                if(!name.isEmpty()){
-                    goToSongs(name);
-                }else{
-                    showSnack();
-                }
-            }
-        });
+    @OnEditorAction(R.id.tie_name_login)
+    protected boolean onLogin(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            login();
+        }
+        return false;
+    }
+
+    private void login(){
+        String name = tieNameLogin.getText().toString();
+        if(!name.isEmpty()){
+            goToSongs(name);
+        }else{
+            showSnack();
+        }
     }
 
     private void goToSongs(String name){
