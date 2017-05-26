@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alvardev.listento.bases.BaseAppCompatActivity;
 import com.alvardev.listento.views.addsong.AddSongActivity;
@@ -29,6 +30,10 @@ public class SongsActivity extends BaseAppCompatActivity implements SongsContrac
 
     @BindView(R.id.toolbar) protected Toolbar toolbar;
     @BindView(R.id.rvi_songs) protected RecyclerView rviSongs;
+    @BindView(R.id.inc_loading) protected View incLoading;
+    @BindView(R.id.tvi_no_results) protected TextView tviNoResults;
+
+
     private List<Song> songs;
 
     private SongsContract.Presenter mPresenter;
@@ -47,19 +52,24 @@ public class SongsActivity extends BaseAppCompatActivity implements SongsContrac
 
     @Override
     public void onLoading(boolean active){
-
+        incLoading.setVisibility(active ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public void onSongsObtained(List<Song> songs) {
         this.songs = songs;
+        // setRecyclerView() is wrong,
+        // must use other method to update content
+        // (for this demo is ok but must be improve)
         setRecyclerView();
+        rviSongs.setVisibility(songs.size() > 0 ? View.VISIBLE : View.GONE);
+        tviNoResults.setVisibility(songs.size() > 0 ? View.GONE : View.VISIBLE);
         Log.i(TAG, "Total songs: " + this.songs.size());
     }
 
     @Override
     public void setPresenter(SongsContract.Presenter presenter) {
-        //this method is useful when use fragments
+        // this method is useful when use fragments
         mPresenter = presenter;
     }
 
@@ -85,7 +95,10 @@ public class SongsActivity extends BaseAppCompatActivity implements SongsContrac
                 int position = rviSongs.getChildLayoutPosition(view);
                 ImageView img = (ImageView) view.findViewById(R.id.ivi_cover);
                 Bundle bundle = new Bundle();
-                bundle.putString("songId", songs.get(position).getId());
+                // Using Serializable just for this demo
+                // Better send an ID and search the object on Realm
+                // (this is a Demo)
+                bundle.putSerializable("song", songs.get(position));
                 explodeToActivity(SongsActivity.this, PlaySongActivity.class, img, bundle);
             }
         });

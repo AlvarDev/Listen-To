@@ -56,13 +56,15 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder>
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        String urlCover = mData.get(position).getUrlCover() == null ?
-                "" : mData.get(position).getUrlCover();
-        Picasso.with(context)
-                .load(urlCover)
-                .placeholder(R.drawable.lp_logo)
-                .error(R.drawable.lp_logo)
-                .into(holder.iviCover);
+        String urlCover = mData.get(position).getUrlCover();
+        if(urlCover != null && !urlCover.isEmpty()){
+            Picasso.with(context)
+                    .load(urlCover)
+                    .placeholder(R.drawable.lp_logo)
+                    .error(R.drawable.lp_logo)
+                    .into(holder.iviCover);
+        }
+
 
         holder.tviBand.setText(mData.get(position).getBand());
         holder.tviName.setText(mData.get(position).getName());

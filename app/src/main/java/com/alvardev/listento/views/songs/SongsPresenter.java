@@ -33,6 +33,7 @@ class SongsPresenter implements SongsContract.Presenter{
 
     @Override
     public void getSongs() {
+        mView.onLoading(true);
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -40,12 +41,14 @@ class SongsPresenter implements SongsContract.Presenter{
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     songs.add(snapshot.getValue(Song.class));
                 }
+                mView.onLoading(false);
                 mView.onSongsObtained(songs);
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
                 Log.w(TAG, "Failed to read value.", error.toException());
+                mView.onLoading(false);
             }
         });
     }

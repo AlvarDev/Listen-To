@@ -32,6 +32,18 @@
         android:clickable="true"
         android:src="@drawable/ic_add_white_24dp" />
 
+    <include
+        android:id="@+id/inc_loading"
+        android:visibility="gone"
+        layout="@layout/loading_layout"/>
+
+    <TextView
+        android:id="@+id/tvi_no_results"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/s_no_songs_found"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>
 

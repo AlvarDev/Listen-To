@@ -74,13 +74,15 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        String urlCover =  mData.get(position).getAlbum().getImages().get(0).getUrl() == null ?
-                "" : mData.get(position).getAlbum().getImages().get(0).getUrl();
-        Picasso.with(context)
-                .load(urlCover)
-                .placeholder(R.drawable.lp_logo)
-                .error(R.drawable.lp_logo)
-                .into(holder.iviCover);
+        String urlCover =  mData.get(position).getAlbum().getImages().get(0).getUrl();
+        if(urlCover != null && !urlCover.isEmpty()){
+            Picasso.with(context)
+                    .load(urlCover)
+                    .placeholder(R.drawable.lp_logo)
+                    .error(R.drawable.lp_logo)
+                    .into(holder.iviCover);
+        }
+
 
         holder.tviBand.setText(mData.get(position).getArtists().get(0).getName());
         holder.tviName.setText(mData.get(position).getName());
