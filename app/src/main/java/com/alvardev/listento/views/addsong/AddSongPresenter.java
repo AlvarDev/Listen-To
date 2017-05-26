@@ -110,7 +110,7 @@ class AddSongPresenter implements AddSongContract.Presenter, MediaPlayer.OnPrepa
     }
 
     @Override
-    public void onBackPressed() {
+    public void onStop() {
         if(mMediaPlayer.isPlaying()){
             mMediaPlayer.stop();
         }

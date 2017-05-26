@@ -174,6 +174,12 @@ public class AddSongActivity extends BaseAppCompatActivity implements AddSongCon
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        mPresenter.onBackPressed();
+        mPresenter.onStop();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPresenter.onStop();
     }
 }

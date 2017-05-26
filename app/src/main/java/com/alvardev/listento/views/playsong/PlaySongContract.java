@@ -1,34 +1,32 @@
-package com.alvardev.listento.views.addsong;
+package com.alvardev.listento.views.playsong;
 
 import com.alvardev.listento.bases.BasePresenter;
 import com.alvardev.listento.bases.BaseView;
 
 /**
- * Created by alvardev on 21/05/17.
- * Contract for Add Song
+ * Created by alvarom on 26/05/2017.
+ * Contract for Play song
  */
 
-interface AddSongContract {
+public interface PlaySongContract {
 
     interface View extends BaseView<Presenter> {
 
         void onLoading(boolean active);
 
-        void onShareSongSuccess();
-
         void onNoPreviewFound();
+
+        void onSetIcon(int id);
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void addSongToFirebase(String id, String urlCover, String band, String name, String user, String previewUrl);
-
-        void searchTracksOnSpotify(String q);
-
         void playSong(String urlPreview);
 
         void onStop();
+
+        boolean isLoadingOrPlaying();
 
     }
 

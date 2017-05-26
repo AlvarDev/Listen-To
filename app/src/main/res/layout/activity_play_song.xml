@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main_content"
     tools:context="com.alvardev.listento.views.playsong.PlaySongActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="192dp">
 
@@ -21,10 +23,10 @@
                 android:id="@+id/ivi_image_sound"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:background="@color/colorBlack"
                 android:contentDescription="@string/app_name"
                 android:scaleType="fitCenter"
-                android:background="@color/colorBlack"
-                android:adjustViewBounds="true"
                 android:src="@drawable/lp_logo" />
 
             <android.support.v7.widget.Toolbar
@@ -32,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:titleTextColor="@color/colorWhite"/>
+                app:titleTextColor="@color/colorWhite" />
 
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
@@ -44,13 +46,37 @@
         android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:gravity="center"
-            android:text="@string/s_new_divide"/>
+            android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/progress_bar_bottom"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:layout_marginTop="-4dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="16dp"
+                android:text="@string/s_new_divide" />
+        </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_play_song"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:tint="@color/colorWhite"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/ic_play_arrow_black_24px" />
 
 </android.support.design.widget.CoordinatorLayout>
