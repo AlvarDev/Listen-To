@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">ListenTo</string>
+    <string name="app_name">Listen To!</string>
+    <string name="s_current_version">Version 0.1</string>
 
     <string name="s_empty_name">Write a name</string>
+    <string name="s_who_are_you">Who are you?</string>
     <string name="s_lets_go">Let\'s go!</string>
     <string name="s_hi">Hi&#160;</string>
     <string name="s_on_work">Working on&#8230;</string>

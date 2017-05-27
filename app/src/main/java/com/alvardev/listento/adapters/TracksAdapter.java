@@ -78,8 +78,8 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
         if(urlCover != null && !urlCover.isEmpty()){
             Picasso.with(context)
                     .load(urlCover)
-                    .placeholder(R.drawable.lp_logo)
-                    .error(R.drawable.lp_logo)
+                    .placeholder(R.drawable.logo_white)
+                    .error(R.drawable.logo_white)
                     .into(holder.iviCover);
         }
 

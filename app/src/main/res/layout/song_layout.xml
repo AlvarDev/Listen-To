@@ -18,7 +18,8 @@
             android:layout_marginBottom="8dp"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
-            android:src="@drawable/lp_logo" />
+            android:background="@color/colorBlack"
+            android:src="@drawable/logo_white" />
 
         <TextView
             android:id="@+id/tvi_name"

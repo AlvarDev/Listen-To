@@ -71,8 +71,8 @@ public class PlaySongActivity extends BaseAppCompatActivity implements PlaySongC
         if(urlCover != null && !urlCover.isEmpty()){
             Picasso.with(PlaySongActivity.this)
                     .load(urlCover)
-                    .placeholder(R.drawable.lp_logo)
-                    .error(R.drawable.lp_logo)
+                    .placeholder(R.drawable.logo_white)
+                    .error(R.drawable.logo_white)
                     .into(iviImageSound);
         }
 

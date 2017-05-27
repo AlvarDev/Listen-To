@@ -22,7 +22,8 @@
             android:layout_marginRight="8dp"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
-            android:src="@drawable/lp_logo" />
+            android:background="@color/colorBlack"
+            android:src="@drawable/logo_white" />
 
         <LinearLayout
             android:layout_width="0dp"

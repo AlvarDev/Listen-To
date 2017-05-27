@@ -12,9 +12,32 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/lp_logo_white" />
+        android:padding="56dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/logo_white" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/colorWhite"
+        android:textSize="28sp"
+        android:layout_marginBottom="2dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:text="@string/s_current_version"
+        android:textColor="@color/colorWhite"
+        android:textStyle="italic" />
 
     <!-- Field Name -->
     <android.support.design.widget.TextInputLayout
@@ -28,7 +51,7 @@
             android:id="@+id/tie_name_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/app_name"
+            android:hint="@string/s_who_are_you"
             android:inputType="textPersonName|textCapWords"
             android:textColor="@color/colorWhite"
             android:textSize="14sp" />
