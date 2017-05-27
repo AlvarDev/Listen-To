@@ -5,11 +5,10 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.alvardev.listento.R;
 import com.alvardev.listento.bases.BaseAppCompatActivity;
@@ -28,9 +27,13 @@ public class PlaySongActivity extends BaseAppCompatActivity implements PlaySongC
     @BindView(R.id.ct_toolbar) protected CollapsingToolbarLayout ctToolbar;
     @BindView(R.id.progress_bar_bottom) protected View progressBarBottom;
     @BindView(R.id.fab_play_song) protected FloatingActionButton fabPlaySong;
+    @BindView(R.id.tvi_name) protected TextView tviName;
+    @BindView(R.id.tvi_user) protected TextView tviUser;
 
     private PlaySongContract.Presenter mPresenter;
     private Song song;
+    private boolean isPlaying;
+    private boolean isAllowToStop;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +50,18 @@ public class PlaySongActivity extends BaseAppCompatActivity implements PlaySongC
 
     @OnClick(R.id.fab_play_song)
     protected void onPlaySong(){
-        if(!mPresenter.isLoadingOrPlaying()){
+        if(!isPlaying){
+            isPlaying = true;
             mPresenter.playSong(song.getPreviewUrl());
-        }else{
+        }else if(isAllowToStop){
             mPresenter.onStop();
+            isPlaying = false;
         }
+
     }
 
     private void setToolBar() {
-        ctToolbar.setTitle(song.getName());
+        ctToolbar.setTitle(song.getBand());
         ctToolbar.setCollapsedTitleTextColor(ContextCompat.getColor(PlaySongActivity.this, R.color.colorWhite));
         ctToolbar.setExpandedTitleColor(ContextCompat.getColor(PlaySongActivity.this, R.color.colorTransparent));
     }
@@ -70,6 +76,8 @@ public class PlaySongActivity extends BaseAppCompatActivity implements PlaySongC
                     .into(iviImageSound);
         }
 
+        tviName.setText(song.getName());
+        tviUser.setText("(" + song.getUser() + ")");
     }
 
     private void validateTransitions(View view) {
@@ -97,6 +105,16 @@ public class PlaySongActivity extends BaseAppCompatActivity implements PlaySongC
     @Override
     public void onSetIcon(int id) {
         fabPlaySong.setImageResource(id);
+    }
+
+    @Override
+    public void setAllowToStop(boolean allowToStop) {
+        isAllowToStop = allowToStop;
+    }
+
+    @Override
+    public void setIsPlaying(boolean isPlaying) {
+        this.isPlaying = isPlaying;
     }
 
     private void showSnack(String message) {

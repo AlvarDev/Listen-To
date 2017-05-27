@@ -19,7 +19,6 @@ class PlaySongPresenter implements PlaySongContract.Presenter, MediaPlayer.OnPre
     private PlaySongContract.View mView;
     private Context context;
     private MediaPlayer mMediaPlayer;
-    private boolean loadingOrPlaying;
 
     PlaySongPresenter(PlaySongContract.View mView, Context context) {
         this.mView = mView;
@@ -36,7 +35,7 @@ class PlaySongPresenter implements PlaySongContract.Presenter, MediaPlayer.OnPre
     public void playSong(String urlPreview) {
         if (urlPreview != null && !urlPreview.isEmpty()) {
             mView.onLoading(true);
-            loadingOrPlaying = true;
+            mView.setAllowToStop(false);
             try {
                 mMediaPlayer = new MediaPlayer();
                 mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -53,17 +52,14 @@ class PlaySongPresenter implements PlaySongContract.Presenter, MediaPlayer.OnPre
 
     @Override
     public void onStop() {
-        if (mMediaPlayer.isPlaying()) {
-            mMediaPlayer.stop();
+        if(mMediaPlayer != null){
+            if (mMediaPlayer.isPlaying()) {
+                mMediaPlayer.stop();
+            }
+            mView.onSetIcon(R.drawable.ic_play_arrow_black_24px);
         }
-        loadingOrPlaying = false;
-        mView.onSetIcon(R.drawable.ic_play_arrow_black_24px);
     }
 
-    @Override
-    public boolean isLoadingOrPlaying() {
-        return loadingOrPlaying;
-    }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
@@ -71,9 +67,16 @@ class PlaySongPresenter implements PlaySongContract.Presenter, MediaPlayer.OnPre
             mMediaPlayer.stop();
         }
         mMediaPlayer.start();
+        mMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                mView.setIsPlaying(false);
+                mView.onSetIcon(R.drawable.ic_play_arrow_black_24px);
+            }
+        });
         mView.onLoading(false);
-        loadingOrPlaying = true;
         mView.onSetIcon(R.drawable.ic_stop_black_24px);
+        mView.setAllowToStop(true);
     }
 
 

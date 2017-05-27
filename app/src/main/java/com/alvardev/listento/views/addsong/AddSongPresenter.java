@@ -128,10 +128,12 @@ class AddSongPresenter implements AddSongContract.Presenter, MediaPlayer.OnPrepa
     }
 
     private void resetMediaPlayer(){
-        if(mMediaPlayer.isPlaying()){
-            mMediaPlayer.stop();
+        if(mMediaPlayer != null){
+            if(mMediaPlayer.isPlaying()){
+                mMediaPlayer.stop();
+            }
+            mMediaPlayer = new MediaPlayer();
         }
-        mMediaPlayer = new MediaPlayer();
     }
 
     private void saveOnRealm(List<Track> trackList){

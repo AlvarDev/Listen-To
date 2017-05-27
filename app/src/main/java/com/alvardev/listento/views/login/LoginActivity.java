@@ -1,5 +1,6 @@
 package com.alvardev.listento.views.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -39,7 +41,7 @@ public class LoginActivity extends BaseAppCompatActivity {
     @OnEditorAction(R.id.tie_name_login)
     protected boolean onLogin(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
-            login();
+            hideKeyboard();
         }
         return false;
     }
@@ -50,6 +52,14 @@ public class LoginActivity extends BaseAppCompatActivity {
             goToSongs(name);
         }else{
             showSnack();
+        }
+    }
+
+    private void hideKeyboard() {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
     }
 

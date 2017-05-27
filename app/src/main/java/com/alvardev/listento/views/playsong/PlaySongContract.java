@@ -18,6 +18,10 @@ interface PlaySongContract {
 
         void onSetIcon(int id);
 
+        void setAllowToStop(boolean allowToStop);
+
+        void setIsPlaying(boolean isPlaying);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -25,8 +29,6 @@ interface PlaySongContract {
         void playSong(String urlPreview);
 
         void onStop();
-
-        boolean isLoadingOrPlaying();
 
     }
 
