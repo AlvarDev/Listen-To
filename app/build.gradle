@@ -9,12 +9,19 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
+    }
+
+    signingConfigs {
+        release {
+            keyPassword "password"
+            v2SigningEnabled false
+        }
     }
 
     buildTypes {
