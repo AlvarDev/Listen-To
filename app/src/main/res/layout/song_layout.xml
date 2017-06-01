@@ -15,9 +15,9 @@
             android:id="@+id/ivi_cover"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginBottom="8dp"
             android:contentDescription="@string/app_name"
             android:scaleType="centerCrop"
-            android:layout_marginBottom="8dp"
             android:src="@drawable/lp_logo" />
 
         <TextView
@@ -26,6 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:gravity="center"
+            android:paddingEnd="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingStart="4dp"
             android:text="@string/app_name"
             android:textStyle="bold" />
 
@@ -35,6 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:gravity="center"
+            android:paddingEnd="4dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingStart="4dp"
             android:text="@string/app_name"
             android:textStyle="italic" />
 

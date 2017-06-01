@@ -12,6 +12,9 @@ import java.util.List;
 
 public class Const {
 
+    /**
+     * Criamos uma lista de objetos (models/Song) para mandar ao Adapter (adapters/SongsAdapter)
+     * **/
     public static List<Song> getSongs(){
         List<Song> songs = new ArrayList<>();
 
@@ -21,7 +24,7 @@ public class Const {
         songs.add(new Song("https://images-na.ssl-images-amazon.com/images/I/61P0M5B0V0L.jpg", "The phantom of the opera", "Nightwish"));
         songs.add(new Song("https://i.ytimg.com/vi/WKrXsbjiKRA/hqdefault.jpg", "Guilty", "The Rasmus"));
         songs.add(new Song("https://upload.wikimedia.org/wikipedia/en/1/17/The_Killers_-_Hot_Fuss.png", "Somebody told me", "The Killers"));
-        songs.add(new Song("https://upload.wikimedia.org/wikipedia/en/8/8a/EvFallencover01.jpg", "My Immortal - Band Version", ""));
+        songs.add(new Song("https://upload.wikimedia.org/wikipedia/en/8/8a/EvFallencover01.jpg", "My Immortal - Band Version", "Evanescence"));
         songs.add(new Song("https://upload.wikimedia.org/wikipedia/en/e/ec/PapaRoachFEAR.png", "Gravity", "Papa Roach"));
         songs.add(new Song("https://upload.wikimedia.org/wikipedia/en/9/95/Skilletawake2009albumart.jpg", "Awake and Alive", "Skillet"));
         songs.add(new Song("http://streamd.hitparade.ch/cdimages/the_script-breakeven_s_1.jpg", "Breakeven", "The Script"));

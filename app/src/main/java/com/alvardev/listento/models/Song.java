@@ -5,6 +5,8 @@ import java.io.Serializable;
 /**
  * Created by alvardev on 18/05/17.
  * Song model
+ *
+ * É um objeto que tem todos os atributos que no Adapter (adapters/SongAdapter) precisa pra mostrar no recycler view
  */
 
 public class Song implements Serializable{

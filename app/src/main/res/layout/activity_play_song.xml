@@ -17,6 +17,10 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
+            <!--
+             Sim!, este layout tem muitas coisas juntas mas o importante é o ImageView porque ele vai receber a animação,
+             se quiser adicionar mais coisas, aqui é o lugar
+            -->
             <ImageView
                 android:id="@+id/ivi_image_sound"
                 android:layout_width="match_parent"
@@ -38,12 +42,18 @@
     </android.support.design.widget.AppBarLayout>
 
 
+
+    <!--
+     Aqui vai o contenido que vai ser mostrado no Activity,
+     precisa do NestedScrollView para que o CollapsingToolbarLayout funcione
+     -->
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!-- Aqui coloquei um simples TetView mas pode utilizar LinearLayout, RelativeLayout, etc -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

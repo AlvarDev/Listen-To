@@ -22,45 +22,66 @@ import java.util.List;
 
 public class SongsActivity extends AppCompatActivity {
 
+    /**
+     * Não esqueca colocar as librerias no (app) build.gradle pra poder importar as clases
+     *
+     * Criar os objetos que vamos a utilizar
+     * **/
     private static final String TAG = "SongsAct";
     private Toolbar toolbar;
-    private FloatingActionButton facAddSong;
     private RecyclerView rviSongs;
 
-    private List<Song> songs;
+    private List<Song> songs;//Lista de musicas
 
+    /**
+     * onCreate é o primeiro metodo em ser chamado quando o Activity é criado
+     * **/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_songs);
 
-        String name = getIntent().getExtras().getString("name");
-        songs = Const.getSongs();
+        String name = getIntent().getExtras().getString("name");//name foi enviado pelo LoginActivity
+        songs = Const.getSongs(); //os dados são fixos, eles ficam no arquivo utils/Const
         findViews();
         setToolbar(name);
         setRecyclerView();
     }
 
+    /**
+     * Enlazar os objetos com os id colocados no Layout
+     * **/
     private void findViews(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         rviSongs = (RecyclerView) findViewById(R.id.rvi_songs);
-        facAddSong = (FloatingActionButton) findViewById(R.id.fac_add_song);
     }
 
+    /**
+     * Colocamos o nome recebido no Toolbar
+     * **/
+    private void setToolbar(String name){
+        toolbar.setTitle(getString(R.string.s_hi) + name);
+        setSupportActionBar(toolbar);
+    }
+
+    /**
+     * Neste metodo o importante é criar o Adapter e falar pra ele qual é a lista com os dados a mostrar.
+     * Também é possivel indicar uma ação cada vez que o usuário escolhe um item
+     * **/
     private void setRecyclerView(){
         rviSongs.setHasFixedSize(true);
         StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         rviSongs.setLayoutManager(mLayoutManager);
 
-        SongsAdapter songsAdapter = new SongsAdapter(songs, SongsActivity.this);
+        SongsAdapter songsAdapter = new SongsAdapter(songs, SongsActivity.this);//Criar o adapter e falar pra ele a lista de dados (songs)
         songsAdapter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int position = rviSongs.getChildLayoutPosition(view);
-                ImageView img = (ImageView) view.findViewById(R.id.ivi_cover);
+                int position = rviSongs.getChildLayoutPosition(view); //obter a posição do item que foi escolhido (0, 1, 2... n-1)
+                ImageView img = (ImageView) view.findViewById(R.id.ivi_cover);//Para fazer a animação, simplesmente identificamos o view que vai fazer a animação
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("song", songs.get(position));
-                goToPlaySong(img, bundle);
+                bundle.putSerializable("song", songs.get(position));//obtemos o objeto escolidho pelo usuário
+                goToPlaySong(img, bundle);//esse metodo indica pra onde vão ser enviados os dados
             }
         });
 
@@ -69,6 +90,9 @@ public class SongsActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Valida se o sistema operacional soporta Material Design e coloca o view e o objeto que vão ser enviados
+     * **/
     private void goToPlaySong(View view, Bundle bundle){
         Intent intent = new Intent(SongsActivity.this, PlaySongActivity.class);
         if (bundle != null) {
@@ -80,16 +104,13 @@ public class SongsActivity extends AppCompatActivity {
             ActivityOptions options = view != null ?
                     ActivityOptions.makeSceneTransitionAnimation(this, view, "view") :
                     ActivityOptions.makeSceneTransitionAnimation(this);
-            startActivity(intent, options.toBundle());
+            startActivity(intent, options.toBundle());//Chamar PlaySonActivity com animação
 
         } else {
-            startActivity(intent);
+            startActivity(intent);//Chamar PlaySonActivity sem animação
         }
     }
 
-    private void setToolbar(String name){
-        toolbar.setTitle(getString(R.string.s_hi) + name);
-        setSupportActionBar(toolbar);
-    }
+
 
 }

@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.alvardev.listento.SongsActivity">
 
+
+    <!-- O Toolbar é utilizado para colocar o nome do usuário-->
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -14,24 +16,16 @@
         android:elevation="8dp"
         app:titleTextColor="@color/colorWhite" />
 
+    <!-- Aqui colocamos as musicas -->
+    <!-- Um RecyclerView precisa de duas coisas:
+         1.- Um Adapter que gerencie a infomação que vai ser mostrada no RecyclerView (adapters/SongsAdapter)
+         2.- Um layout de como a informaçao vai ser mostrada (layout/song_layout.xml)
+    -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvi_songs"
         android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fac_add_song"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        android:src="@drawable/ic_add_white_24dp" />
-
 
 </RelativeLayout>
 
