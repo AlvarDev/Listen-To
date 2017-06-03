@@ -10,7 +10,10 @@ import com.google.gson.JsonParseException;
 
 import java.io.IOException;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -30,7 +33,28 @@ public class ApiClient {
         return new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(getHttpClient())
                 .build();
+    }
+
+    private static OkHttpClient getHttpClient() {
+        OkHttpClient httpClient = new OkHttpClient();
+        OkHttpClient.Builder httpClientBuilder = httpClient.newBuilder();
+        httpClientBuilder.addInterceptor(new Interceptor() {
+            @Override
+            public Response intercept(Chain chain) throws IOException {
+                Request original = chain.request();
+                Request request = original.newBuilder()
+                        .header("Content-Type", "application/json")
+                        .header("Authorization", "Bearer BQDcmZ1s1aa3vgUy2emu_lQ9czTBGUx0PhPCozWNf0RKGkoseUGyUkLmxvl1elaO-CfnpQDGHA_ubfhhmQ-bLWjAlh8tmDROTKFFTCwmbXF2Oqc4Jxko3ZvB5sFgh0ism0dnkgoquaDeYtUv")
+                        .method(original.method(), original.body())
+                        .build();
+                return chain.proceed(request);
+            }
+        });
+
+        httpClient = httpClientBuilder.build();
+        return httpClient;
     }
 
     public static String manageResponseErrors(retrofit2.Response response, Context context) {

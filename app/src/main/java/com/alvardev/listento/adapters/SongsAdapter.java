@@ -60,8 +60,8 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder>
         if(urlCover != null && !urlCover.isEmpty()){
             Picasso.with(context)
                     .load(urlCover)
-                    .placeholder(R.drawable.logo_white)
-                    .error(R.drawable.logo_white)
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.placeholder)
                     .into(holder.iviCover);
         }
 
