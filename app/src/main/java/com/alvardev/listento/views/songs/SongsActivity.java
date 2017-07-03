@@ -99,7 +99,7 @@ public class SongsActivity extends BaseAppCompatActivity implements SongsContrac
                 // Better send an ID and search the object on Realm
                 // (this is a Demo)
                 bundle.putSerializable("song", songs.get(position));
-                explodeToActivity(SongsActivity.this, PlaySongActivity.class, img, bundle);
+                keepViewToActivity(SongsActivity.this, PlaySongActivity.class, img, bundle);
             }
         });
 

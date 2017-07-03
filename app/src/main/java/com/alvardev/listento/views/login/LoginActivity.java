@@ -14,12 +14,15 @@ import android.widget.TextView;
 
 import com.alvardev.listento.R;
 import com.alvardev.listento.bases.BaseAppCompatActivity;
+import com.alvardev.listento.models.Track;
 import com.alvardev.listento.views.songs.SongsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnEditorAction;
+import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class LoginActivity extends BaseAppCompatActivity {
 
@@ -31,6 +34,7 @@ public class LoginActivity extends BaseAppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        cleanRealm();
     }
 
     @OnClick(R.id.btn_login)
@@ -73,6 +77,17 @@ public class LoginActivity extends BaseAppCompatActivity {
         Snackbar.make(mainContent, getString(R.string.s_empty_name), Snackbar.LENGTH_LONG)
                 .setAction("", null)
                 .show();
+    }
+
+    private void cleanRealm(){
+        Realm mRealm = Realm.getDefaultInstance();
+        final RealmResults<Track> tracksToDelete = mRealm.where(Track.class).findAll();
+        mRealm.executeTransaction(new Realm.Transaction() {
+            @Override
+            public void execute(Realm realm) {
+                tracksToDelete.deleteAllFromRealm();
+            }
+        });
     }
 
 

@@ -28,30 +28,62 @@ public class BaseAppCompatActivity extends AppCompatActivity {
 
     }
 
-    protected void explodeToActivity(Context context, Class<?> cls, View view, Bundle bundle) {
+    /**
+     * To change Activity
+     *
+     * @param context Activity/Fragment origin
+     * @param cls     Activity destination
+     * @param view    (ImageView) that receive the animation
+     * @param bundle  data sent to Activity
+     *                <p>
+     *                NOTE: if you send an View (ImageView) to the other Activity,
+     *                you should use validateTransitions(View view) in the new Activity (onCreate method)
+     **/
+    protected void moveToActivity(Context context, Class<?> cls, View view, Bundle bundle, boolean explode) {
         Intent intent = new Intent(context, cls);
         if (bundle != null) {
             intent.putExtra("extra", bundle);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setExitTransition(new Explode());
+            if(explode){
+                getWindow().setExitTransition(new Explode());
+            }
             ActivityOptions options = view != null ?
                     ActivityOptions.makeSceneTransitionAnimation((Activity) context, view, "view") :
                     ActivityOptions.makeSceneTransitionAnimation((Activity) context);
             startActivity(intent, options.toBundle());
-
-        } else {
+        }else{
             startActivity(intent);
         }
+
+
+    }
+
+    protected void explodeToActivity(Context context, Class<?> cls, View view, Bundle bundle){
+        moveToActivity(context, cls, view, bundle, true);
     }
 
     protected void explodeToActivity(Context context, Class<?> cls, View view) {
-        explodeToActivity(context, cls, view, null);
+        moveToActivity(context, cls, view, null, true);
     }
 
     protected void explodeToActivity(Context context, Class<?> cls) {
-        explodeToActivity(context, cls, null, null);
+        moveToActivity(context, cls, null, null, true);
+    }
+
+
+    /*****/
+    protected void keepViewToActivity(Context context, Class<?> cls, View view, Bundle bundle){
+        moveToActivity(context, cls, view, bundle, false);
+    }
+
+    protected void keepViewToActivity(Context context, Class<?> cls, View view) {
+        moveToActivity(context, cls, view, null, false);
+    }
+
+    protected void keepViewToActivity(Context context, Class<?> cls) {
+        moveToActivity(context, cls, null, null, false);
     }
 
     protected void saveCurrentUser(String user) {

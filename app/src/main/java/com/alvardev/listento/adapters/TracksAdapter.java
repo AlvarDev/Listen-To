@@ -74,13 +74,17 @@ public class TracksAdapter extends RecyclerView.Adapter<TracksAdapter.ViewHolder
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        String urlCover =  mData.get(position).getAlbum().getImages().get(0).getUrl();
+        String urlCover =  mData.get(position).getAlbum().getImages().size() > 0  ?
+                mData.get(position).getAlbum().getImages().get(0).getUrl() : "";
+
         if(urlCover != null && !urlCover.isEmpty()){
             Picasso.with(context)
                     .load(urlCover)
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.placeholder)
                     .into(holder.iviCover);
+        }else{
+            holder.iviCover.setImageResource(R.drawable.placeholder);
         }
 
 

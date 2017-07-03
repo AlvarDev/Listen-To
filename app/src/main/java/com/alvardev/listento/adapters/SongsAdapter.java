@@ -57,12 +57,15 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder>
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         String urlCover = mData.get(position).getUrlCover();
+
         if(urlCover != null && !urlCover.isEmpty()){
             Picasso.with(context)
                     .load(urlCover)
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.placeholder)
                     .into(holder.iviCover);
+        }else{
+            holder.iviCover.setImageResource(R.drawable.placeholder);
         }
 
 

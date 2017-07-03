@@ -63,7 +63,7 @@ public class ApiClient {
                 String errorString = response.errorBody().string();
                 ErrorResponse error = new Gson().fromJson(errorString, ErrorResponse.class);
 
-                return error.getMessages().size() > 0 ?
+                return error != null && error.getMessages() != null && error.getMessages().size() > 0 ?
                         error.getMessages().get(0) :
                         context.getString(R.string.s_general_error);
             }else{
